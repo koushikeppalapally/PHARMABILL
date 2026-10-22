@@ -111,7 +111,7 @@ const AdminMedicines = () => {
             body: bodyData,
             startY: 30,
             styles: { fontSize: 8, cellPadding: 4 },
-            headStyles: { fillColor: [22, 163, 74] }
+            headStyles: { fillColor: [41, 73, 94] }
         });
         doc.save(`${filename}.pdf`);
     } catch (err) { alert("PDF Generation Error"); }
@@ -153,14 +153,14 @@ const AdminMedicines = () => {
   );
 
   return (
-     <div className="flex min-h-screen bg-[#F0F4F8]">
+     <div className="flex min-h-screen bg-[#f4f6f8]">
       <aside className="w-80 bg-white text-slate-500 flex flex-col border-r border-slate-100 fixed h-full z-40 p-8 shadow-sm">
         <div className="flex items-center gap-4 px-4 mb-16">
           <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-lg border border-slate-100 p-2 overflow-hidden transform -rotate-3 transition-transform hover:rotate-0">
-            <img src={logo} className="w-full h-full object-contain" alt="PharmTech Logo" />
+            <img src={logo} className="w-full h-full object-contain" alt="Sathyam PharmaTech Logo" />
           </div>
           <div>
-            <h1 className="text-slate-800 font-black tracking-tight text-2xl leading-none">Pharm<span className="text-green-600">Tech</span></h1>
+            <h1 className="flex flex-col text-slate-800 font-semibold tracking-tight text-xl leading-tight"><span>Sathyam</span><span className="text-green-700">PharmaTech</span></h1>
             <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em] mt-1.5">Admin Management</p>
           </div>
         </div>
@@ -267,8 +267,15 @@ const AdminMedicines = () => {
                             bills={filteredBills} 
                             onExportPDF={() => exportPDFHandler(
                                 'Sales Revenue Ledger', 
-                                ['Bill #', 'Customer Name', 'Date', 'Amount (INR)', 'Payment'], 
-                                filteredBills.map(b => [b.id, b.customerName, b.date ? new Date(b.date).toLocaleDateString() : 'N/A', b.totalAmount?.toFixed(2), b.paymentMode]), 
+                                ['Bill #', 'Customer Name', 'Medicine (Qty)', 'Date', 'Amount (INR)', 'Payment'], 
+                                filteredBills.map(b => [
+                                    b.id,
+                                    b.customerName,
+                                    b.items?.map(item => `${item.medicine?.name || 'Unknown medicine'} (Qty: ${item.quantity ?? 0})`).join('\n') || 'N/A',
+                                    b.date ? new Date(b.date).toLocaleDateString() : 'N/A',
+                                    b.totalAmount?.toFixed(2),
+                                    b.paymentMode
+                                ]), 
                                 'Sales_Report'
                             )} 
                         />
@@ -439,6 +446,7 @@ const SalesModule = ({ bills, onExportPDF }) => (
                      <tr>
                          <th className="px-10 py-8">Ledger #</th>
                          <th className="px-6 py-8">Customer Node</th>
+                         <th className="px-6 py-8">Medicine Sold</th>
                          <th className="px-6 py-8">Contact / Registry</th>
                          <th className="px-6 py-8 text-center">Proto</th>
                          <th className="px-10 py-8 text-right">Net Value</th>
@@ -450,6 +458,20 @@ const SalesModule = ({ bills, onExportPDF }) => (
                              <td className="px-10 py-6 text-green-600 font-black text-xs">#{b.id}</td>
                              <td className="px-6 py-6 font-black text-slate-800 tracking-tight">{b.customerName}</td>
                              <td className="px-6 py-6">
+                                 {b.items?.length ? (
+                                     <ul className="space-y-1">
+                                         {b.items.map((item) => (
+                                             <li key={item.id} className="text-xs text-slate-700">
+                                                 {item.medicine?.name || 'Unknown medicine'}
+                                                 <span className="ml-2 text-[10px] font-semibold text-slate-400">× {item.quantity ?? 0}</span>
+                                             </li>
+                                         ))}
+                                     </ul>
+                                 ) : (
+                                     <span className="text-xs font-medium text-slate-400">No item details</span>
+                                 )}
+                             </td>
+                             <td className="px-6 py-6">
                                  <p className="text-xs font-black text-slate-900">{b.customerPhone || 'N/A'}</p>
                                  <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">{b.date ? new Date(b.date).toLocaleDateString() : 'N/A'}</p>
                              </td>
@@ -459,7 +481,7 @@ const SalesModule = ({ bills, onExportPDF }) => (
                              <td className="px-10 py-6 text-right font-black text-slate-800 text-lg">₹{Number(b.totalAmount || 0).toFixed(2)}</td>
                          </tr>
                      ))}
-                     {bills.length === 0 && <tr><td colSpan="5" className="py-32 text-center text-slate-400 uppercase font-black tracking-widest text-[10px]">No Matching Transmission Nodes Found</td></tr>}
+                     {bills.length === 0 && <tr><td colSpan="6" className="py-32 text-center text-slate-400 uppercase font-black tracking-widest text-[10px]">No Matching Transmission Nodes Found</td></tr>}
                  </tbody>
              </table>
          </div>

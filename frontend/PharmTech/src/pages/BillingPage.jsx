@@ -148,7 +148,7 @@ const BillingPage = () => {
     // -- Header Section --
     doc.setFontSize(22);
     doc.setTextColor(15, 23, 42); // Slate 900
-    doc.text("PHARMTECH RETAIL", 14, 20);
+    doc.text("SATHYAM PHARMATECH", 14, 20);
     
     doc.setFontSize(9);
     doc.setTextColor(100, 116, 139); // Slate 500
@@ -175,7 +175,7 @@ const BillingPage = () => {
           `INR ${i.price.toFixed(2)}`, 
           `INR ${(i.price * i.quantity).toFixed(2)}`
       ]),
-      headStyles: { fillColor: [22, 163, 74], textColor: [255, 255, 255], fontSize: 9 },
+      headStyles: { fillColor: [41, 73, 94], textColor: [255, 255, 255], fontSize: 9 },
       bodyStyles: { fontSize: 8, textColor: [51, 65, 85] },
       alternateRowStyles: { fillColor: [240, 253, 244] },
       margin: { top: 60 }
@@ -206,9 +206,9 @@ const BillingPage = () => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(148, 163, 184);
     doc.text("Computer Generated Invoice - No Signature Required", 105, 280, { align: 'center' });
-    doc.text("Thank you for your purchase from PharmTech!", 105, 285, { align: 'center' });
+    doc.text("Thank you for your purchase from Sathyam PharmaTech!", 105, 285, { align: 'center' });
 
-    doc.save(`PharmTech_Invoice_${Date.now()}.pdf`);
+    doc.save(`Sathyam_PharmaTech_Invoice_${Date.now()}.pdf`);
   };
 
   const finalizeBill = async () => {
@@ -231,16 +231,16 @@ const BillingPage = () => {
   const filteredMeds = medicines.filter(m => m.name.toLowerCase().includes(search.toLowerCase()) && m.stockQuantity > 0);
 
   return (
-    <div className="flex h-screen bg-[#F0F4F8] overflow-hidden font-sans text-slate-900">
+    <div className="flex h-screen bg-[#f4f6f8] overflow-hidden font-sans text-slate-900">
       {/* Search Space */}
       <div className="flex-1 flex flex-col min-w-0 border-r border-slate-200">
         <header className="h-20 bg-white border-b border-slate-200 px-8 flex items-center justify-between shrink-0 shadow-sm relative z-10">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-white rounded-xl shadow-md border border-slate-100 flex items-center justify-center p-1.5 overflow-hidden ring-4 ring-green-50">
-              <img src={logo} className="w-full h-full object-contain" alt="PharmTech Logo" />
+              <img src={logo} className="w-full h-full object-contain" alt="Sathyam PharmaTech Logo" />
             </div>
             <div>
-              <h1 className="text-xl font-black text-slate-800 tracking-tight">Pharm<span className="text-green-600">Tech</span></h1>
+              <h1 className="flex flex-col text-lg font-semibold text-slate-800 tracking-tight leading-tight"><span>Sathyam</span><span className="text-green-700">PharmaTech</span></h1>
               <p className="text-[9px] text-slate-400 font-bold uppercase tracking-[0.2em] -mt-0.5">Inventory Operations</p>
             </div>
           </div>

@@ -35,24 +35,23 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] relative overflow-hidden">
-      {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-green-200/20 blur-[130px] rounded-full -mr-48 -mt-48" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-200/20 blur-[130px] rounded-full -ml-48 -mb-48" />
-
+    <div className="min-h-screen flex items-center justify-center bg-[#f4f6f8] px-4 py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.05)] rounded-3xl p-10 relative z-10 overflow-hidden">
+        <div className="bg-white border border-slate-200 shadow-[0_12px_36px_rgba(31,55,75,0.08)] rounded-2xl p-8 sm:p-10">
           {/* Header */}
-          <div className="flex flex-col items-center mb-10">
-            <div className="w-20 h-20 bg-white border border-slate-100 rounded-2xl flex items-center justify-center shadow-lg shadow-green-200 mb-8 group transition-all transform hover:scale-110 p-2 overflow-hidden">
-              <img src={logo} className="w-full h-full object-contain" alt="PharmTech Logo" />
+          <div className="flex flex-col items-center mb-9">
+            <div className="w-16 h-16 bg-white border border-slate-200 rounded-xl flex items-center justify-center mb-5 p-2 overflow-hidden">
+              <img src={logo} className="w-full h-full object-contain" alt="Sathyam PharmaTech Logo" />
             </div>
-            <h1 className="font-sans text-4xl font-black text-slate-800 tracking-tighter">Pharm<span className="text-green-600">Tech</span></h1>
-            <p className="text-slate-500 mt-2 font-medium text-sm">Pharmacy Management & Billing</p>
+            <h1 className="flex flex-col items-center font-sans text-slate-800 tracking-tight leading-tight">
+              <span className="text-2xl font-semibold">Sathyam</span>
+              <span className="text-xl font-medium text-green-700">PharmaTech</span>
+            </h1>
+            <p className="text-slate-500 mt-3 font-normal text-sm">Pharmacy Management & Billing</p>
           </div>
 
           {error && (
@@ -60,7 +59,7 @@ const LoginPage = () => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: [0, -10, 10, -10, 10, 0] }}
               transition={{ duration: 0.4 }}
-              className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 flex items-center gap-3 shadow-sm"
+              className="mb-6 p-4 rounded-lg bg-red-50 border border-red-100 flex items-center gap-3"
             >
               <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               <p className="text-red-600 text-xs font-bold uppercase tracking-wider">{error}</p>
@@ -78,7 +77,7 @@ const LoginPage = () => {
                   type="text"
                   required
                   placeholder="Enter your username"
-                  className="block w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 focus:bg-white transition-all text-sm font-medium"
+                  className="block w-full pl-11 pr-4 py-3.5 bg-white border border-slate-300 rounded-lg text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600 transition-all text-sm"
                   value={formData.username}
                   onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 />
@@ -95,7 +94,7 @@ const LoginPage = () => {
                   type="password"
                   required
                   placeholder="••••••••"
-                  className="block w-full pl-11 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-500 focus:bg-white transition-all text-sm font-medium"
+                  className="block w-full pl-11 pr-4 py-3.5 bg-white border border-slate-300 rounded-lg text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500/20 focus:border-green-600 transition-all text-sm"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />
@@ -105,10 +104,8 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full relative group"
+              className="w-full py-3.5 bg-green-700 hover:bg-green-800 text-white rounded-lg font-semibold flex items-center justify-center gap-3 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
-              <div className="relative w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg shadow-green-100 hover:shadow-green-200 transition-all hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed">
                 {loading ? (
                   <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
@@ -117,7 +114,6 @@ const LoginPage = () => {
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
-              </div>
             </button>
           </form>
 
@@ -125,11 +121,11 @@ const LoginPage = () => {
           <div className="mt-12 pt-8 border-t border-slate-100 grid grid-cols-2 gap-4">
             <div className="flex items-center gap-2 text-slate-400">
               <ShieldCheck className="w-4 h-4" />
-              <span className="text-[10px] font-bold uppercase tracking-tight">Secured Access</span>
+              <span className="text-[10px] font-semibold uppercase tracking-tight">Secured Access</span>
             </div>
             <div className="flex items-center gap-2 text-slate-400 justify-end">
               <Activity className="w-4 h-4" />
-              <span className="text-[10px] font-bold uppercase tracking-tight">System v1.0</span>
+              <span className="text-[10px] font-semibold uppercase tracking-tight">System v1.0</span>
             </div>
           </div>
         </div>

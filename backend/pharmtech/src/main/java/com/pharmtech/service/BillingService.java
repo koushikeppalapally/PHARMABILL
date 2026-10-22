@@ -50,6 +50,7 @@ public class BillingService {
             medicineRepository.save(medicine);
 
             // Set item price
+            item.setMedicine(medicine);
             item.setPrice(medicine.getUnitPrice());
             item.setBill(bill);
 
